@@ -29,7 +29,7 @@ namespace Skola_Bank_Client
                 {
                     return -1;
                 }
-                else    // if neither enter or escape were pressed
+                else    // up, down or invalid input
                 {
                     currentlySelectedOption = UpdatedSelectedOption;
                 }
