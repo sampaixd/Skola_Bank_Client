@@ -45,11 +45,12 @@ namespace Skola_Bank_Client
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            finally
+            finally // wont be reached if you successfully connect to the server
             {
                 throw new ServerUnavalibleException();
             }
         }
+        // tries 10 times to connect with a 10 second intervall, throws a exception if this fails
         static TcpClient ConnectToServer(TcpClient tcpClient, string address, int port)
         {
             int attempts = 0;

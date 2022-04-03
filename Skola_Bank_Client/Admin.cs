@@ -9,7 +9,7 @@ namespace Skola_Bank_Client
     /*internal class Admin : User
     {
         string password;
-        public Admin(string username, string socialSecurityNumber, string password) : base(username, socialSecurityNumber)
+        public Admin(string firstName, string lastName, string socialSecurityNumber, string password) : base(firstName, lastName, socialSecurityNumber)
         {
             this.password = password;
         }

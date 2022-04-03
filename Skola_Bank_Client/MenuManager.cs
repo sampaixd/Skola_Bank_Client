@@ -8,10 +8,12 @@ namespace Skola_Bank_Client
 {
     internal class MenuManager  // class used for navigating and viewing the menu
     {
+        string title;
         string[] options;
         int currentlySelectedOption;
-        public MenuManager(string[] options)
+        public MenuManager(string title, string[] options)
         {
+            this.title = title;
             this.options = options;
             this.currentlySelectedOption = 0;
         }
@@ -38,7 +40,7 @@ namespace Skola_Bank_Client
         }
         public void MainMenuUI()
         {
-            
+            Console.WriteLine(title + "\n");
             for (int i = 0; i < options.Length; i++)
             {
                 DisplayOption(i == currentlySelectedOption, options[i]);

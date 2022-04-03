@@ -9,11 +9,13 @@ namespace Skola_Bank_Client
     internal abstract class User
     {
             
-        string username;
+        string firstName;
+        string lastName;
         string socialSecurityNumber;
-        public User(string username, string socialSecurityNumber)
+        public User(string firstName, string lastName, string socialSecurityNumber)
         {
-            this.username = username;
+            this.firstName = firstName;
+            this.lastName = lastName;
             this.socialSecurityNumber = socialSecurityNumber;
         }
 

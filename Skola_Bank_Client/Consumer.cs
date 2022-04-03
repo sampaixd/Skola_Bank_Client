@@ -8,7 +8,7 @@ namespace Skola_Bank_Client
 {
     /*internal class Consumer : User, IConsumer
     {
-        public Consumer(string username, string socialSecurityNumber) : base(username, socialSecurityNumber)
+        public Consumer(string firstName, string lastName, string socialSecurityNumber) : base(firstName, lastName, socialSecurityNumber)
             { }
 
     }*/

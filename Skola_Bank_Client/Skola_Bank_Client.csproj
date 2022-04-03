@@ -49,14 +49,17 @@
     <Compile Include="IConsumer.cs" />
     <Compile Include="InvalidArgumentException.cs" />
     <Compile Include="InvalidSocialSecurityNumberException.cs" />
+    <Compile Include="LoginManager.cs" />
     <Compile Include="MenuManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReturnToMenu.cs" />
+    <Compile Include="ServerFalseResponseException.cs" />
     <Compile Include="ServerUnavalibleException.cs" />
     <Compile Include="SocketComm.cs" />
     <Compile Include="TcpInformation.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
