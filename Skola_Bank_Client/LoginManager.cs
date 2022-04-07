@@ -10,36 +10,74 @@ namespace Skola_Bank_Client
     {
         static public void Login()
         {
-            bool loggingIn = true;
-            while (loggingIn)
+            try
+            {
+                BasicLogin();
+                CheckIfAdmin();
+            }
+            catch (ReturnToMenu)
+            {
+                return;
+            }
+        }
+
+        static void BasicLogin()
+        {
+            bool nameValidated = false;
+            while (!nameValidated)
             {
                 string fullName = GetFirstAndLastName();
                 SocketComm.SendMsg(fullName);
-                ServerValidateCredentials();
+                nameValidated = ServerValidateCredentials();
             }
-
-            SocketComm.ServerTrueOrFalseResponse(); // if the inserted user is a admin, get true
         }
 
         static string GetFirstAndLastName()
         {
-            Console.Write("Please enter your first name: ");
-            string firstName = Console.ReadLine();
-            Console.Write("Please enter your last name: ");
-            string lastName = Console.ReadLine();
+            string firstName = GetInput("Please enter your first name: ");
+            string lastName = GetInput("Please enter your last name: ");
             return $"{firstName}|{lastName}";
         }
-        static void ServerValidateCredentials()
-        {
 
-            try
+        static string GetInput(string question)
+        {
+            Console.Write(question);
+            string input = Console.ReadLine();
+            CheckIfInputIsEmpty(input);
+            return input;
+
+        }
+        static void CheckIfInputIsEmpty(string input)
+        {
+            if (input.Length == 0)
+                throw new ReturnToMenu();
+        }
+        static bool ServerValidateCredentials()
+        {
+            if (SocketComm.ServerTrueOrFalseResponse())
+                return true;
+            else
             {
-                SocketComm.ServerTrueOrFalseResponse();
+                Console.WriteLine("The inserted names were either incorrect or does not have an account, please try again");
+                return false;
             }
-            catch (ServerFalseResponseException)
-            {
-                Console.WriteLine("The entered names were incorrect or does not have an account, please try again");
-            }
+
+        }
+
+        static void CheckIfAdmin()
+        {
+            if (SocketComm.ServerTrueOrFalseResponse())  // if the inserted user is a admin, get true
+                AdminLogin();
+            else
+                Console.WriteLine("Temp");  // TODO add login to basic user
+
+        }
+
+        static void AdminLogin()
+        {
+            Console.Write("Please enter your password: ");
+            string password = Console.ReadLine();
+            SocketComm.SendMsg(password);
         }
     }
 }

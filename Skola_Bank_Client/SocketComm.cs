@@ -29,10 +29,11 @@ namespace Skola_Bank_Client
             Thread.Sleep(50);   // avoids multiple messages being sent at once
         }
         // checks for a true/false response, used for example in checking if a user exists in the database or not
-        public static void ServerTrueOrFalseResponse()    
+        public static bool ServerTrueOrFalseResponse()    
         {
             if (RecvMsg() == "false")
-                throw new ServerFalseResponseException();
+                return false;
+            return true;
         }
     }
 }
