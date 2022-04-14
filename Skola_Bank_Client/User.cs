@@ -18,8 +18,6 @@ namespace Skola_Bank_Client
             this.lastName = lastName;
             this.socialSecurityNumber = socialSecurityNumber;
         }
-
-        protected abstract void Login();
         protected abstract void LoggedinMenu();
         protected abstract void ChangeUserInformation();
         protected abstract void ChangePassword();

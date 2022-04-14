@@ -31,7 +31,7 @@ namespace Skola_Bank_Client
         // checks for a true/false response, used for example in checking if a user exists in the database or not
         public static bool ServerTrueOrFalseResponse()    
         {
-            if (RecvMsg() == "false")
+            if (RecvMsg() == "False")
                 return false;
             return true;
         }
