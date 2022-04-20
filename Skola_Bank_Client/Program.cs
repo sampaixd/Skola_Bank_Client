@@ -13,7 +13,7 @@ namespace Skola_Bank_Client
         static MenuManager mainMenu = new MenuManager("Welcome to the lorem ipsum bank!", new string[] { "Create account", "Login", "Exit application" });
         static void Main(string[] args)
         {
-            //TcpInformation.Init();
+            TcpInformation.Init();
             bool connected = true;
             while (connected)
             {

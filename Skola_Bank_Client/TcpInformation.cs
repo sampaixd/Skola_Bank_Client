@@ -23,9 +23,11 @@ namespace Skola_Bank_Client
             {
                 tcpClient = AttemptToConnectToServer(tcpClient, address, port);
             }
-            catch
+            catch(Exception e)
             {
                 Console.WriteLine("Press enter to exit the application");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
                 Console.ReadLine();
                 Environment.Exit(0);
             }
@@ -45,10 +47,8 @@ namespace Skola_Bank_Client
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            finally // wont be reached if you successfully connect to the server
-            {
-                throw new ServerUnavalibleException();
-            }
+            throw new ServerUnavalibleException();
+
         }
         // tries 10 times to connect with a 10 second intervall, throws a exception if this fails
         static TcpClient ConnectToServer(TcpClient tcpClient, string address, int port)
