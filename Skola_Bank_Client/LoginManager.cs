@@ -36,7 +36,8 @@ namespace Skola_Bank_Client
         {
             string firstName = GetInput("Please enter your first name: ");
             string lastName = GetInput("Please enter your last name: ");
-            return $"{firstName}|{lastName}";
+            string socialSecurityNumber = GetInput("Please enter your social security number: ");
+            return $"{firstName}|{lastName}|{socialSecurityNumber}";
         }
 
         static string GetInput(string question)

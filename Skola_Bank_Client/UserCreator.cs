@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Skola_Bank_Client
 {
@@ -10,11 +11,22 @@ namespace Skola_Bank_Client
     {
         static public void CreateUser()
         {
+            SocketComm.SendMsg("create account");
             string userCredentials = "";
             Console.WriteLine("press enter without having entered any info if you wish to cancel the process of creating a user");
             try
             {
                 userCredentials = GetUserCredentials();
+                SocketComm.SendMsg(userCredentials);
+                if (SocketComm.ServerTrueOrFalseResponse())
+                    Console.WriteLine("account created");
+
+                else
+                    Console.WriteLine("account already exists");
+
+                Console.WriteLine("Returning to menu...");
+                Thread.Sleep(2000);
+                Console.Clear();
             }
             catch (ReturnToMenu)
             {
@@ -25,9 +37,9 @@ namespace Skola_Bank_Client
 
         static string GetUserCredentials()
         {
-            string name = GetFirstAndLastName();
+            string fullName = GetFirstAndLastName();
             string socialSecurityNumber = GetSocialSecurityNumber();
-            return $"{name}|{socialSecurityNumber}";
+            return $"{fullName}|{socialSecurityNumber}";
         }
 
         static string GetFirstAndLastName()

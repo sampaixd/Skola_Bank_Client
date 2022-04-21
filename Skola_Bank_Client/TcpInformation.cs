@@ -31,6 +31,7 @@ namespace Skola_Bank_Client
                 Console.ReadLine();
                 Environment.Exit(0);
             }
+            tcpStream = tcpClient.GetStream();
         }
         static TcpClient AttemptToConnectToServer(TcpClient tcpClient, string address, int port)
         {
