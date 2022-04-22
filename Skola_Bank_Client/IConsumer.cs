@@ -8,6 +8,8 @@ namespace Skola_Bank_Client
 {
     internal interface IConsumer
     {
-        
+        void PerformTransaction();
+
+        void ManageDeposits();
     }
 }

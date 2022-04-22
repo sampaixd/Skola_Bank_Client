@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Skola_Bank_Client
 {
@@ -10,6 +11,7 @@ namespace Skola_Bank_Client
     {
         static public void Login()
         {
+            SocketComm.SendMsg("login");
             try
             {
                 BasicLogin();
@@ -26,13 +28,13 @@ namespace Skola_Bank_Client
             bool nameValidated = false;
             while (!nameValidated)
             {
-                string fullName = GetFirstAndLastName();
-                SocketComm.SendMsg(fullName);
+                string credentials = GetUserCredentials();
+                SocketComm.SendMsg(credentials);
                 nameValidated = ServerValidateCredentials();
             }
         }
 
-        static string GetFirstAndLastName()
+        static string GetUserCredentials()
         {
             string firstName = GetInput("Please enter your first name: ");
             string lastName = GetInput("Please enter your last name: ");
@@ -70,15 +72,32 @@ namespace Skola_Bank_Client
             if (SocketComm.ServerTrueOrFalseResponse())  // if the inserted user is a admin, get true
                 AdminLogin();
             else
-                Console.WriteLine("Temp");  // TODO add login to basic user
+                Console.WriteLine("Successfully logged in");  // TODO add login to basic user
 
         }
 
         static void AdminLogin()
         {
-            Console.Write("Please enter your password: ");
-            string password = Console.ReadLine();
-            SocketComm.SendMsg(password);
+            string password = " ";
+            while (password != "")
+            { 
+                Console.Write("Please enter your password: ");
+                password = Console.ReadLine();
+                if (password == "")
+                    continue;
+                SocketComm.SendMsg(password);
+                if (SocketComm.ServerTrueOrFalseResponse())
+                { 
+                    Console.WriteLine("Logged in as admin");    // TODO here
+                    Thread.Sleep(2000);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("login as admin failed");
+                }
+                        
+            }
         }
     }
 }

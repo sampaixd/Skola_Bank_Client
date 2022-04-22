@@ -18,6 +18,7 @@ namespace Skola_Bank_Client
             while (connected)
             {
                 int chosenOption = mainMenu.MainMenu();
+                Console.Clear();
                 NavigateToSelectedOption(chosenOption);
             }
 
@@ -34,6 +35,7 @@ namespace Skola_Bank_Client
                     break;
 
                 case 1:
+                    LoginManager.Login();
                     break;
 
                 case 2:

@@ -83,6 +83,10 @@ namespace Skola_Bank_Client
                 {
                     Console.WriteLine("The entered social security number is invalid, please enter your social security number again");
                 }
+                catch(FormatException)
+                {
+                    Console.WriteLine("The entered social security number is invalid, please enter your social security number again");
+                }
             }
         }
 

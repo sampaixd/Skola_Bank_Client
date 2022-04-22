@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="Consumer.cs" />
+    <Compile Include="Deposit.cs" />
     <Compile Include="IAdmin.cs" />
     <Compile Include="IConsumer.cs" />
     <Compile Include="InvalidArgumentException.cs" />
