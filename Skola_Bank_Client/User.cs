@@ -20,9 +20,7 @@ namespace Skola_Bank_Client
         }
         public abstract void LoggedinMenu();
         protected abstract void ChangeUserInformation();
-        protected abstract void ChangePassword();
         protected abstract void ChangeUsername();
-        protected abstract void ChangeSocialSecurityNumber(); 
 
     }
 }

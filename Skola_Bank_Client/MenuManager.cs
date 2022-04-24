@@ -102,5 +102,7 @@ namespace Skola_Bank_Client
                 return 0;
             return ++currentlySelectedOption;
         }
+
+        public string Title { set { title = value; } }
     }
 }
