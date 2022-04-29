@@ -73,7 +73,7 @@ namespace Skola_Bank_Client
             if (SocketComm.ServerTrueOrFalseResponse())  // if the inserted user is a admin, get true
                 AdminLogin();
             else
-                Console.WriteLine("Successfully logged in");  // TODO add login to basic user
+                ConsumerLogin();
 
         }
 
@@ -100,5 +100,52 @@ namespace Skola_Bank_Client
                         
             }
         }
+
+        static void ConsumerLogin()
+        {
+            Consumer activeConsumer = GetConsumerInfo();
+            activeConsumer.LoggedinMenu();
+        }
+
+        static Consumer GetConsumerInfo()
+        {
+            string recievedCredentials = "";
+
+            recievedCredentials = SocketComm.RecvMsg();
+            string[] splitRecievedCredentials = recievedCredentials.Split('|');
+
+            string firstName = splitRecievedCredentials[0];
+            string lastName = splitRecievedCredentials[1];
+            string socialSecurityNumber = splitRecievedCredentials[2];
+
+            List<Deposit> deposits = GetDeposits(splitRecievedCredentials);
+
+            Consumer activeConsumer = new Consumer(firstName, lastName, socialSecurityNumber, deposits);
+            activeConsumer.DisplayInfo();
+            return activeConsumer;
+        }
+
+        static List<Deposit> GetDeposits(string[] splitRecievedCredentials)
+        {
+            List<Deposit> deposits = new List<Deposit>();
+            // this is where deposits start in the recieved string, will be incremented
+            int depositArrCurrentValue = 3;
+
+            while(true)
+            {
+                if (splitRecievedCredentials[depositArrCurrentValue] == "depositEnd")
+                    break;
+
+                string name = splitRecievedCredentials[depositArrCurrentValue];
+                int id = Convert.ToInt32(splitRecievedCredentials[depositArrCurrentValue + 1]);
+                double balance = Convert.ToDouble(splitRecievedCredentials[depositArrCurrentValue + 2]);
+                deposits.Add(new Deposit(name, id, balance));
+                depositArrCurrentValue += 3;
+            }
+
+            return deposits;
+
+        }
+
     }
 }

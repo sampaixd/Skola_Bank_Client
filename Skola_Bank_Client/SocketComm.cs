@@ -12,7 +12,7 @@ namespace Skola_Bank_Client
     {
         public static string RecvMsg()
         {
-            byte[] bMsg = new byte[256];
+            byte[] bMsg = new byte[1024];
             int bReadSize = TcpInformation.GetTcpStream.Read(bMsg, 0, bMsg.Length);
             string msg = "";
 

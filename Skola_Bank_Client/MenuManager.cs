@@ -25,6 +25,7 @@ namespace Skola_Bank_Client
                 int UpdatedSelectedOption = NavigateMainMenu();
                 if (UpdatedSelectedOption == -2)     // enter
                 {
+                    Console.Clear();
                     return currentlySelectedOption;
                 }
                 else if (UpdatedSelectedOption == -1)    // escape

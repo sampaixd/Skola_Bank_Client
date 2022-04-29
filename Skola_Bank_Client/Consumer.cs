@@ -104,6 +104,7 @@ namespace Skola_Bank_Client
             foreach (Deposit deposit in deposits)
             {
                 extractedDeposits[currentDeposit] = $"{deposit.Name} - {deposit.Balance} kr";
+                currentDeposit++;
             }
             return extractedDeposits;
         }
@@ -145,10 +146,32 @@ namespace Skola_Bank_Client
 
         void ManageDeposits()   // TODO fix this later
         {
+            MenuManager manageDepositMenu = new MenuManager("Please select the desired option", new string[] {"Add deposit", "delete deposit"});
+            int selectedOption = manageDepositMenu.MainMenu();
+            if (selectedOption == 0)
+                AddDeposit();
+            else
+                DeleteDeposit();
+            
+            Thread.Sleep(2000);
+        }
+
+        void AddDeposit()
+        {
             SocketComm.SendMsg("addDeposit");
             SocketComm.SendMsg($"deposit {deposits.Count()}|{deposits.Count()}|500");
             Console.WriteLine("Deposit added");
             Console.WriteLine("returning to menu...");
+        }
+
+        void DeleteDeposit()
+        {
+            SocketComm.SendMsg("deleteDeposit");
+            MenuManager depositsMenu = new MenuManager("Please select the deposit you wish to delete", ExtractDepositsInfo());
+            int deletedDepositId = depositsMenu.MainMenu();
+            SocketComm.SendMsg($"{deletedDepositId}");
+            deposits.RemoveAt(deletedDepositId);
+            Console.WriteLine("Deposit deleted, returing to previous menu...");
             Thread.Sleep(2000);
         }
 
@@ -160,6 +183,17 @@ namespace Skola_Bank_Client
         protected override void ChangeUsername()
         {
             throw new NotImplementedException();
+        }
+
+        public void DisplayInfo()
+        {
+            Console.WriteLine(firstName);
+            Console.WriteLine(lastName);
+            Console.WriteLine(socialSecurityNumber);
+            foreach (Deposit deposit in deposits)
+            {
+                Console.WriteLine($"{deposit.Name} - {deposit.Id} - {deposit.Balance}");
+            }
         }
 
     }
