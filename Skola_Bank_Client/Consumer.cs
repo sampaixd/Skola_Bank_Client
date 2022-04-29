@@ -20,15 +20,23 @@ namespace Skola_Bank_Client
             MenuManager menuManager = InitMenuManager();
             while (true)
             {
+                int selectedOption = 0;
+                // if esc was pressed while in the menu
                 try
                 {
-                    int selectedOption = menuManager.MainMenu();
-                    ForwardSelectedOption(selectedOption);
+                    selectedOption = menuManager.MainMenu();
                 }
                 catch (ReturnToMenu)
                 {
                     break;
                 }
+                // if esc was pressed somewhere else, it does not log you out
+                try
+                {
+                    ForwardSelectedOption(selectedOption);
+                }
+                catch(ReturnToMenu)
+                { }
             }
         }
 
@@ -160,6 +168,7 @@ namespace Skola_Bank_Client
         {
             SocketComm.SendMsg("addDeposit");
             SocketComm.SendMsg($"deposit {deposits.Count()}|{deposits.Count()}|500");
+            deposits.Add(new Deposit(deposits.Count, 500));
             Console.WriteLine("Deposit added");
             Console.WriteLine("returning to menu...");
         }
@@ -173,6 +182,7 @@ namespace Skola_Bank_Client
             deposits.RemoveAt(deletedDepositId);
             Console.WriteLine("Deposit deleted, returing to previous menu...");
             Thread.Sleep(2000);
+            Console.Clear();
         }
 
         protected override void ChangeUserInformation()

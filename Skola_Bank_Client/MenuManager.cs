@@ -21,22 +21,21 @@ namespace Skola_Bank_Client
         {
             while (true)
             {
+                Console.Clear();
                 MainMenuUI();
                 int UpdatedSelectedOption = NavigateMainMenu();
                 if (UpdatedSelectedOption == -2)     // enter
                 {
-                    Console.Clear();
                     return currentlySelectedOption;
                 }
                 else if (UpdatedSelectedOption == -1)    // escape
                 {
-                    return -1;
+                    throw new ReturnToMenu();
                 }
                 else    // up, down or invalid input
                 {
                     currentlySelectedOption = UpdatedSelectedOption;
                 }
-                Console.Clear();
             }
         }
         public void MainMenuUI()

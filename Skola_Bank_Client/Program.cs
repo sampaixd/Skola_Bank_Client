@@ -17,9 +17,16 @@ namespace Skola_Bank_Client
             bool connected = true;
             while (connected)
             {
-                int chosenOption = mainMenu.MainMenu();
-                Console.Clear();
-                NavigateToSelectedOption(chosenOption);
+                try
+                {
+                    int chosenOption = mainMenu.MainMenu();
+                    Console.Clear();
+                    NavigateToSelectedOption(chosenOption);
+                }
+                catch (ReturnToMenu)
+                {
+                    Environment.Exit(0);
+                }
             }
 
 
@@ -39,9 +46,6 @@ namespace Skola_Bank_Client
                     break;
 
                 case 2:
-                case -1:    // if esc was pressed in main menu
-                    Environment.Exit(0);
-                    break;
 
                 default:
                     throw new InvalidArgumentException();
