@@ -46,11 +46,13 @@
     <Compile Include="Admin.cs" />
     <Compile Include="Consumer.cs" />
     <Compile Include="Deposit.cs" />
+    <Compile Include="DepositStorage.cs" />
     <Compile Include="IAdmin.cs" />
     <Compile Include="IConsumer.cs" />
     <Compile Include="InvalidArgumentException.cs" />
     <Compile Include="InvalidSocialSecurityNumberException.cs" />
     <Compile Include="LoginManager.cs" />
+    <Compile Include="MaxDepositsException.cs" />
     <Compile Include="MenuManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

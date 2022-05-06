@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Skola_Bank_Client
 {
-    internal class Consumer : User//, IConsumer TODO fix language version to be compatible with private interface methods
+    internal class Consumer : User, IConsumer
     {
         List<Deposit> deposits;
         public Consumer(string firstName, string lastName, string socialSecurityNumber, List<Deposit> deposits) : base(firstName, lastName, socialSecurityNumber)
@@ -43,7 +43,7 @@ namespace Skola_Bank_Client
         MenuManager InitMenuManager()
         {
             string title = $"Welcome {firstName}! Please select what you wish to do";
-            string[] options = { "Perform transaction", "Manage deposits", "Change user information", "Logout" };
+            string[] options = { "Perform transaction", "Manage deposits", "Logout" };
             return new MenuManager(title, options);
         }
 
@@ -52,23 +52,22 @@ namespace Skola_Bank_Client
             switch(selectedOption)
             {
                 case 0:
-                    PerformTransaction();
+                    SocketComm.SendMsg("transaction");
+                    LocalTransaction();
+                    //PerformTransaction(); scrapped idea of also being able to perform transactions between users
                     break;
                 case 1:
                     ManageDeposits();
                     break;
 
-                case 2:
-                    ChangeUserInformation();
-                    break;
 
-                case 3:
+                case 2:
                     throw new ReturnToMenu();
 
             }
         }
 
-        void PerformTransaction()
+        public void PerformTransaction()
         {
             SocketComm.SendMsg("transaction");
             MenuManager selectTransactionMenu = new MenuManager("What sort of transaction do you wish to do?", new string[] { "perform transaction within personal deposits", "perform transaction with another consumer" });
@@ -152,7 +151,7 @@ namespace Skola_Bank_Client
 
         
 
-        void ManageDeposits()   // TODO fix this later
+        public void ManageDeposits()
         {
             MenuManager manageDepositMenu = new MenuManager("Please select the desired option", new string[] {"Add deposit", "delete deposit"});
             int selectedOption = manageDepositMenu.MainMenu();
