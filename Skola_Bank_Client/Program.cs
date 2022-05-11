@@ -27,6 +27,9 @@ namespace Skola_Bank_Client
                 {
                     Environment.Exit(0);
                 }
+
+                catch(DeletedAccount)
+                { }
             }
 
 
@@ -46,6 +49,7 @@ namespace Skola_Bank_Client
                     break;
 
                 case 2:
+                    throw new ReturnToMenu();
 
                 default:
                     throw new InvalidArgumentException();

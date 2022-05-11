@@ -118,16 +118,16 @@ namespace Skola_Bank_Client
             string lastName = splitRecievedCredentials[1];
             string socialSecurityNumber = splitRecievedCredentials[2];
 
-            List<Deposit> deposits = GetDeposits(splitRecievedCredentials);
+            DepositStorage<Deposit> deposits = GetDeposits(splitRecievedCredentials);
 
             Consumer activeConsumer = new Consumer(firstName, lastName, socialSecurityNumber, deposits);
             activeConsumer.DisplayInfo();
             return activeConsumer;
         }
 
-        static List<Deposit> GetDeposits(string[] splitRecievedCredentials)
+        static DepositStorage<Deposit> GetDeposits(string[] splitRecievedCredentials)
         {
-            List<Deposit> deposits = new List<Deposit>();
+            DepositStorage<Deposit> deposits = new DepositStorage<Deposit>();
             // this is where deposits start in the recieved string, will be incremented
             int depositArrCurrentValue = 3;
 

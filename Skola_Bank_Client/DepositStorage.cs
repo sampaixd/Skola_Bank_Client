@@ -23,7 +23,7 @@ namespace Skola_Bank_Client
 
         public void Remove(int arrayPosition)
         {
-            if (stackPointer - 1 > arrayPosition)
+            if (stackPointer - 1 < arrayPosition)
                 throw new MissingMemberException();
 
             for (int i = arrayPosition + 1; i < stackPointer; i++)
@@ -33,5 +33,9 @@ namespace Skola_Bank_Client
             depositArray[stackPointer] = default;
             stackPointer--;
         }
+
+        public T[] Deposit { get { return depositArray; } }
+
+        public int Count { get { return stackPointer; } }
     }
 }

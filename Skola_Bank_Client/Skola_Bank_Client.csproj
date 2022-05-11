@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="Consumer.cs" />
+    <Compile Include="DeletedAccount.cs" />
     <Compile Include="Deposit.cs" />
     <Compile Include="DepositStorage.cs" />
     <Compile Include="IAdmin.cs" />

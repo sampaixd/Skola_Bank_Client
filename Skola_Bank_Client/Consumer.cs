@@ -9,8 +9,8 @@ namespace Skola_Bank_Client
 {
     internal class Consumer : User, IConsumer
     {
-        List<Deposit> deposits;
-        public Consumer(string firstName, string lastName, string socialSecurityNumber, List<Deposit> deposits) : base(firstName, lastName, socialSecurityNumber)
+        DepositStorage<Deposit> deposits;
+        public Consumer(string firstName, string lastName, string socialSecurityNumber, DepositStorage<Deposit> deposits) : base(firstName, lastName, socialSecurityNumber)
         {
             this.deposits = deposits;
         }
@@ -28,6 +28,7 @@ namespace Skola_Bank_Client
                 }
                 catch (ReturnToMenu)
                 {
+                    SocketComm.SendMsg("logout");
                     break;
                 }
                 // if esc was pressed somewhere else, it does not log you out
@@ -36,14 +37,16 @@ namespace Skola_Bank_Client
                     ForwardSelectedOption(selectedOption);
                 }
                 catch(ReturnToMenu)
-                { }
+                {
+                    SocketComm.SendMsg("back");
+                }
             }
         }
 
         MenuManager InitMenuManager()
         {
             string title = $"Welcome {firstName}! Please select what you wish to do";
-            string[] options = { "Perform transaction", "Manage deposits", "Logout" };
+            string[] options = { "Perform transaction", "Manage deposits", "Delete account", "Logout" };
             return new MenuManager(title, options);
         }
 
@@ -60,8 +63,11 @@ namespace Skola_Bank_Client
                     ManageDeposits();
                     break;
 
-
                 case 2:
+                    DeleteAccount();
+                    break;
+
+                case 3:
                     throw new ReturnToMenu();
 
             }
@@ -87,12 +93,12 @@ namespace Skola_Bank_Client
             selectDepositMenu.Title = "Please select the deposit you wish to move money to";
             int recievingDepositId = selectDepositMenu.MainMenu();
 
-            double transactionAmmount = GetTransactionAmmount(deposits[givingDepositId].Balance);
+            double transactionAmmount = GetTransactionAmmount(deposits.Deposit[givingDepositId].Balance);
 
             SocketComm.SendMsg($"{givingDepositId}|{recievingDepositId}|{transactionAmmount}");
 
-            deposits[givingDepositId].Balance = deposits[givingDepositId].Balance - transactionAmmount;
-            deposits[recievingDepositId].Balance = deposits[recievingDepositId].Balance + transactionAmmount;
+            deposits.Deposit[givingDepositId].Balance = deposits.Deposit[givingDepositId].Balance - transactionAmmount;
+            deposits.Deposit[recievingDepositId].Balance = deposits.Deposit[recievingDepositId].Balance + transactionAmmount;
 
             Console.WriteLine("Transaction performed, returning to menu...");
             Thread.Sleep(2000);
@@ -107,12 +113,9 @@ namespace Skola_Bank_Client
         string[] ExtractDepositsInfo()
         {
             string[] extractedDeposits = new string[deposits.Count];
-            int currentDeposit = 0;
-            foreach (Deposit deposit in deposits)
-            {
-                extractedDeposits[currentDeposit] = $"{deposit.Name} - {deposit.Balance} kr";
-                currentDeposit++;
-            }
+            for (int i = 0; i < deposits.Count; i++)
+                extractedDeposits[i] = $"{deposits.Deposit[i].Name} - {deposits.Deposit[i].Balance} kr";
+           
             return extractedDeposits;
         }
 
@@ -165,9 +168,17 @@ namespace Skola_Bank_Client
 
         void AddDeposit()
         {
+            try
+            {
+
+            }
+            catch(MaxDepositsException)
+            {
+                Console.WriteLine("max deposits reached, please delete a deposit and try again");
+                return;
+            }
             SocketComm.SendMsg("addDeposit");
-            SocketComm.SendMsg($"deposit {deposits.Count()}|{deposits.Count()}|500");
-            deposits.Add(new Deposit(deposits.Count, 500));
+            SocketComm.SendMsg($"deposit {deposits.Count}|{deposits.Count}|500");
             Console.WriteLine("Deposit added");
             Console.WriteLine("returning to menu...");
         }
@@ -178,7 +189,7 @@ namespace Skola_Bank_Client
             MenuManager depositsMenu = new MenuManager("Please select the deposit you wish to delete", ExtractDepositsInfo());
             int deletedDepositId = depositsMenu.MainMenu();
             SocketComm.SendMsg($"{deletedDepositId}");
-            deposits.RemoveAt(deletedDepositId);
+            deposits.Remove(deletedDepositId);
             Console.WriteLine("Deposit deleted, returing to previous menu...");
             Thread.Sleep(2000);
             Console.Clear();
@@ -194,15 +205,28 @@ namespace Skola_Bank_Client
             throw new NotImplementedException();
         }
 
+        void DeleteAccount()
+        {
+            MenuManager deleteAccount = new MenuManager("are you sure you want to delete your account? once deleted it cannot be reverted", new string[] {"yes", "no"});
+            int selectedOption = deleteAccount.MainMenu();
+
+            if (selectedOption == 0)
+            {
+                Console.WriteLine("Account deleted, returning to menu...");
+                SocketComm.SendMsg("deleteAccount");
+                Thread.Sleep(2000);
+                throw new DeletedAccount();
+            }
+                
+        }
+
         public void DisplayInfo()
         {
             Console.WriteLine(firstName);
             Console.WriteLine(lastName);
             Console.WriteLine(socialSecurityNumber);
-            foreach (Deposit deposit in deposits)
-            {
-                Console.WriteLine($"{deposit.Name} - {deposit.Id} - {deposit.Balance}");
-            }
+            for (int i = 0; i < deposits.Count; i++)
+                Console.WriteLine($"{deposits.Deposit[i].Name} - {deposits.Deposit[i].Id} - {deposits.Deposit[i].Balance}");
         }
 
     }
