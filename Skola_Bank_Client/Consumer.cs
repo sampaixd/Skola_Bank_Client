@@ -170,7 +170,7 @@ namespace Skola_Bank_Client
         {
             try
             {
-
+                deposits.Add(new Deposit(deposits.Count, 500));
             }
             catch(MaxDepositsException)
             {
@@ -178,7 +178,7 @@ namespace Skola_Bank_Client
                 return;
             }
             SocketComm.SendMsg("addDeposit");
-            SocketComm.SendMsg($"deposit {deposits.Count}|{deposits.Count}|500");
+            SocketComm.SendMsg($"deposit {deposits.Count - 1}|{deposits.Count - 1}|500");
             Console.WriteLine("Deposit added");
             Console.WriteLine("returning to menu...");
         }

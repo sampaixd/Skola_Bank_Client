@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Skola_Bank_Client.Consumer">
+    <Position X="5.5" Y="3.25" Width="7.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAFAQAGAEA0AAAAAAAAAQAAAAgAAAEEAAAAQAIAAQ=</HashCode>
+      <FileName>Consumer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="deposits" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Skola_Bank_Client.User">
+    <Position X="5.5" Y="0.5" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQACABAAACAAAAAAAAAAAAAAAAAEAAACAAAAAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skola_Bank_Client.DepositStorage&lt;T&gt;">
+    <Position X="5.25" Y="8.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAABAAABAQAAAAAAAAAAAAAEIAAAAI=</HashCode>
+      <FileName>DepositStorage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skola_Bank_Client.Deposit">
+    <Position X="9" Y="8.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAgAAAQIAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Deposit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skola_Bank_Client.LoginManager">
+    <Position X="0.5" Y="3.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AQgAAAAAIAAIAAAAABAAgAAAUAAAgAAAAAASAAAAAAA=</HashCode>
+      <FileName>LoginManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skola_Bank_Client.MenuManager">
+    <Position X="0.5" Y="8.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAQAAAAEAAAQABAAAQAgAAIAAAAEAAgAAAAAA=</HashCode>
+      <FileName>MenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skola_Bank_Client.SocketComm">
+    <Position X="0.5" Y="6.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAAAAEAAA=</HashCode>
+      <FileName>SocketComm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skola_Bank_Client.TcpInformation">
+    <Position X="7.25" Y="12" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAgAAAAIAAAQAAEAACCAAAAAAA=</HashCode>
+      <FileName>TcpInformation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skola_Bank_Client.UserCreator">
+    <Position X="0.5" Y="12.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>QAgAEAAIIQAAAAAAAAAAAAAAAAAAAACAACAAAAACQAA=</HashCode>
+      <FileName>UserCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Skola_Bank_Client.IConsumer">
+    <Position X="2" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IConsumer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
